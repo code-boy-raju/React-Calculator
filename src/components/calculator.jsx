@@ -1,21 +1,31 @@
-import  { Component } from "react";
-import "../App.css"; 
+import { Component } from "react";
+import "../App.css";
 
 class Calculator extends Component {
   state = {
     input: "",
-    result: ""
+    result: "",
   };
 
   handleClick = (value) => {
-    this.setState({ input: this.state.input + value });
-  };
+    const operators = ["/", "*", "-", "+"];
+ 
+    if(operators.includes(value)){
+        if(operators.includes(this.state.input[this.state.input.length-1])){
+            this.state.input=this.state.input.slice(0,-1)
+        }
+    }
+    this.setState({
+        input:this.state.input + value
+    });
+    
+    
+};
 
   clear = () => {
     this.setState({ input: "", result: "" });
   };
 
-  
   backspace = () => {
     this.setState({ input: this.state.input.slice(0, -1) });
   };
@@ -23,7 +33,7 @@ class Calculator extends Component {
   calculate = () => {
     try {
       // evaluate expression safely
-      const res = eval(this.state.input); 
+      const res = eval(this.state.input);
       this.setState({ result: res });
     } catch {
       this.setState({ result: "Error" });
@@ -32,10 +42,21 @@ class Calculator extends Component {
 
   render() {
     const buttons = [
-      "7","8","9","/",
-      "4","5","6","*",
-      "1","2","3","-",
-      "0",".","+"
+      "7",
+      "8",
+      "9",
+      "/",
+      "4",
+      "5",
+      "6",
+      "*",
+      "1",
+      "2",
+      "3",
+      "-",
+      "0",
+      ".",
+      "+",
     ];
 
     return (
@@ -51,9 +72,15 @@ class Calculator extends Component {
               {btn}
             </button>
           ))}
-          <button className="equal" onClick={this.calculate}>=</button>
-          <button className="clear" onClick={this.clear}>C</button>
-          <button className="back" onClick={this.backspace}>⌫</button>
+          <button className="equal" onClick={this.calculate}>
+            =
+          </button>
+          <button className="clear" onClick={this.clear}>
+            C
+          </button>
+          <button className="back" onClick={this.backspace}>
+            ⌫
+          </button>
         </div>
       </div>
     );
