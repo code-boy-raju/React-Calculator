@@ -9,18 +9,16 @@ class Calculator extends Component {
 
   handleClick = (value) => {
     const operators = ["/", "*", "-", "+"];
- 
-    if(operators.includes(value)){
-        if(operators.includes(this.state.input[this.state.input.length-1])){
-            this.state.input=this.state.input.slice(0,-1)
-        }
+    let { input } = this.state;
+    if (operators.includes(value)) {
+      if (operators.includes(input[input.length - 1])) {
+        input = input.slice(0, -1);
+      }
     }
     this.setState({
-        input:this.state.input + value
+      input: input + value,
     });
-    
-    
-};
+  };
 
   clear = () => {
     this.setState({ input: "", result: "" });
